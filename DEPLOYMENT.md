@@ -8,7 +8,7 @@ URL hosting: https://furia-website.heriyawan25032004.workers.dev
 Domain: https://furiapalopo.fit dan https://www.furiapalopo.fit.
 
 Hostinger tetap registrar. Nameserver sudah disimpan: `dion.ns.cloudflare.com` dan `edna.ns.cloudflare.com`.
-Kedua custom domain sudah terhubung ke Worker. Aktivasi global DNS dan HTTPS masih perlu menunggu propagasi dan diperiksa; jangan menyamakan konfigurasi tersimpan dengan domain sudah aktif.
+Kedua custom domain sudah terhubung ke Worker. DNS publik sudah menunjuk ke Cloudflare. HTTPS kedua domain sudah diverifikasi dengan sertifikat valid: halaman utama dan login 200, API admin tanpa login 403. Cache DNS sebagian perangkat/browser masih dapat tertinggal selama propagasi.
 
 Jangan gunakan IP atau TXT verifikasi Sites lama sebagai tujuan hosting ini. Cloudflare mengelola record Worker dan sertifikat custom domain.
 

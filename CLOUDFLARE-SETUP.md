@@ -36,6 +36,8 @@ Do not protect the entire business website. Verify unauthenticated admin/API req
 Target: `furiapalopo.fit`, registration remains at Hostinger.
 Hostinger nameservers were changed with explicit approval to `dion.ns.cloudflare.com` and `edna.ns.cloudflare.com`; Hostinger confirmed success.
 Both `furiapalopo.fit` and `www.furiapalopo.fit` were connected to the production Worker. Cloudflare generated managed Worker DNS records, replacing the old Sites A/CNAME records. Both domains are declared in `wrangler.jsonc` for future deployments. Public DNS/HTTPS activation must be verified after propagation; a successful settings save alone does not confirm global availability.
+
+Final verification: public resolver 1.1.1.1 returned the assigned Cloudflare nameservers and Cloudflare A/AAAA records for both hosts. HTTPS was tested against those public DNS results with normal certificate verification: `/` and `/admin/login` returned 200; `/api/admin/metrics` returned 403 without authentication on both hosts. The local computer/browser resolver still had an outdated negative cache, so a browser visit to the custom domain could not yet be checked visually. The Worker URL remained accessible.
 Do not use the old Sites IP as the new Worker target.
 The owner explicitly chose to start statistics from zero. No old analytics, reviews or rate-limit rows were copied to Cloudflare or committed to GitHub. The existing Sites URL remains separate.
 
