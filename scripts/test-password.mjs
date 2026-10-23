@@ -5,9 +5,11 @@ const DB=createDB(),env={DB,ADMIN_PASSWORD:'local-test-password-32-characters'};
 const call=(path,options={},config=env)=>worker.fetch(new Request('https://furia.example'+path,options),config,{});
 const login=(password,origin='https://furia.example')=>call('/admin/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded','Cf-Connecting-IP':'192.0.2.1'},body:new URLSearchParams({password})});
 try{
- assert.equal((await call('/admin/login')).status,200);
+ const form=await call('/admin/login');assert.equal(form.status,200);
+ assert.equal(form.headers.get('referrer-policy'),'same-origin');
  assert.equal((await call('/admin')).status,303);
  assert.equal((await login(env.ADMIN_PASSWORD,'https://evil.example')).status,403);
+ assert.equal((await login(env.ADMIN_PASSWORD,'null')).status,403);
  assert.equal((await login('incorrect')).status,401);
  const response=await login(env.ADMIN_PASSWORD);assert.equal(response.status,303);
  const set=response.headers.get('set-cookie');assert.match(set,/Secure; HttpOnly; SameSite=Strict/);
