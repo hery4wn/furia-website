@@ -19,15 +19,15 @@ async function call(path,headers={},config=env){return worker.fetch(new Request(
 try{
  assert.equal((await call('/')).status,200);
  for(const path of ['/admin','/api/admin/metrics','/api/admin/reviews']){
-  assert.equal((await call(path,{'oai-authenticated-user-email':'heriyawan25032004@gmail.com','Cf-Access-Authenticated-User-Email':'heriyawan25032004@gmail.com'})).status,403);
+  assert.equal((await call(path,{'oai-authenticated-user-email':'heriyawan25032004@gmail.com','Cf-Access-Authenticated-User-Email':'heriyawan25032004@gmail.com'})).status,path==='/admin'?303:403);
  }
  assert.equal((await call('/admin',{'Cf-Access-Jwt-Assertion':await token()})).status,200);
  assert.equal((await call('/api/admin/metrics',{'Cf-Access-Jwt-Assertion':await token()})).status,200);
  for(const changes of [{aud:['wrong-app']},{iss:'https://evil.example'},{email:'other@example.com'},{exp:1},{nbf:Math.floor(Date.now()/1000)+3600}]){
-  assert.equal((await call('/admin',{'Cf-Access-Jwt-Assertion':await token(changes)})).status,403);
+  assert.equal((await call('/admin',{'Cf-Access-Jwt-Assertion':await token(changes)})).status,303);
  }
  const jwt=await token();
- assert.equal((await call('/admin',{'Cf-Access-Jwt-Assertion':jwt.slice(0,-12)+'AAAAAAAAAAAA'})).status,403);
- assert.equal((await call('/admin',{'Cf-Access-Jwt-Assertion':jwt},{DB})).status,403);
+ assert.equal((await call('/admin',{'Cf-Access-Jwt-Assertion':jwt.slice(0,-12)+'AAAAAAAAAAAA'})).status,303);
+ assert.equal((await call('/admin',{'Cf-Access-Jwt-Assertion':jwt},{DB})).status,303);
  console.log('PASS: Cloudflare admin rejects spoofed identity headers, wrong audience/issuer/account, expired/future/tampered tokens, and missing config; signed owner identity works.');
 }finally{globalThis.fetch=originalFetch;DB.sql.close();}

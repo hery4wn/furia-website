@@ -16,8 +16,12 @@ Builds integration is not active until the dashboard deployment is confirmed suc
 
 ## Private dashboard
 
+The owner selected password login without a payment card. Set `ADMIN_PASSWORD` as an encrypted Worker secret in the Cloudflare dashboard, using a unique passphrase of 16–512 characters. Never commit it. `/admin` redirects to `/admin/login`; authenticated sessions use a signed, Secure/HttpOnly/SameSite=Strict cookie and expire after eight hours. Changing the secret invalidates all sessions. Login attempts are limited through D1. `/admin/logout` clears the browser cookie.
+
+Password entry must be completed by the owner in Cloudflare, not pasted into chat.
+
 Cloudflare adapter always strips caller-supplied Sites identity headers.
-Admin is denied until Cloudflare Access JWT verification is configured.
+Admin is denied until the password secret (or optional Cloudflare Access JWT verification) is configured.
 Configure Access for `/admin*` and `/api/admin/*`, only the owner email, then set:
 
 - `CF_ACCESS_TEAM_DOMAIN`: exact HTTPS team domain ending `.cloudflareaccess.com`.
