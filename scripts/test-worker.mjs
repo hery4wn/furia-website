@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import worker from '../dist/server/index.js';
+import {createDB} from './sqlite-local.mjs';
+const DB=createDB(),env={DB};const base='https://furia.test';const admin={'oai-authenticated-user-email':'heriyawan25032004@gmail.com'};
+function req(path,{data,headers={},method}={}){return new Request(base+path,{method:method|| (data?'POST':'GET'),headers:{...(data?{'Content-Type':'application/json',Origin:base}:{}),...headers},...(data?{body:JSON.stringify(data)}:{})});}
+const call=(path,o)=>worker.fetch(req(path,o),env,{});
+assert.equal((await call('/')).status,200);assert.equal((await call('/assets/furia-logo-transparent.png')).headers.get('content-type'),'image/png');
+assert.equal((await call('/admin')).status,403);assert.equal((await call('/admin',{headers:admin})).status,200);assert.equal((await call('/api/admin/metrics')).status,403);
+const visitor=crypto.randomUUID(),session=crypto.randomUUID();const event={id:crypto.randomUUID(),visitor,session,type:'page_view'};
+assert.equal((await call('/api/events',{data:event})).status,202);await call('/api/events',{data:event});await call('/api/events',{data:{...event,id:crypto.randomUUID(),type:'booking_click'}});
+let m=await (await call('/api/admin/metrics',{headers:admin})).json();assert.equal(m.totals.page_views,1);assert.equal(m.totals.visitor_days,1);assert.equal(m.totals.booking_clicks,1);assert.equal(m.totals.click_rate,100);
+assert.equal((await call('/api/events',{data:event,headers:{Origin:'https://evil.test'}})).status,403);
+assert.equal((await call('/api/events',{data:{...event,id:'bad'}})).status,400);
+const review={name:'Penguji lokal',rating:5,comment:'Latihan menyenangkan bersama komunitas.',consent:true};
+assert.equal((await call('/api/reviews',{data:{...review,rating:7}})).status,400);
+assert.equal((await call('/api/reviews',{data:{...review,website:'spam'}})).status,400);
+assert.equal((await call('/api/reviews',{data:review})).status,201);
+assert.equal((await (await call('/api/reviews')).json()).reviews.length,0);
+let pending=(await (await call('/api/admin/reviews',{headers:admin})).json()).reviews[0];
+assert.equal((await call('/api/admin/reviews',{data:{id:pending.id,status:'approved'}})).status,403);
+assert.equal((await call('/api/admin/reviews',{data:{id:pending.id,status:'approved'},headers:admin})).status,200);
+assert.equal((await (await call('/api/reviews')).json()).reviews.length,1);
+await call('/api/admin/reviews',{data:{id:pending.id,status:'rejected'},headers:admin});assert.equal((await (await call('/api/reviews')).json()).reviews.length,0);
+assert.equal((await (await call('/api/google-reviews')).json()).configured,false);
+assert.equal((await call('/api/reviews',{data:review})).status,201);assert.equal((await call('/api/reviews',{data:review})).status,201);assert.equal((await call('/api/reviews',{data:review})).status,429);
+assert.equal((await call('/unknown')).status,404);
+DB.sql.close();console.log('PASS: persistence, deduplication, admin authorization, metrics, origin checks, validation, moderation and rate limiting. All test records isolated locally.');

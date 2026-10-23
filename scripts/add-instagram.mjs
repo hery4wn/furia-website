@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+const url='https://www.instagram.com/furiasportsclub?psln=MWgwcWR5YWxja2wzdg==';
+let h=fs.readFileSync('public/index.html','utf8');
+h=h.replace('Ikuti kabar, kegiatan, dan momen bersama komunitas Furia. Akun Instagram resmi akan ditambahkan segera.','Ikuti kabar, kegiatan, dan momen bersama komunitas Furia di Instagram resmi kami.');
+h=h.replace('<span class="channel-pending">INSTAGRAM · SEGERA HADIR</span>','<a class="underlined instagram-cta" href="'+url+'" target="_blank" rel="noopener noreferrer">@furiasportsclub <span aria-hidden="true">↗</span></a>');
+h=h.replace('<img src="assets/instagram-placeholder.svg" width="1440" height="900" alt="Area pratinjau Instagram Furia, akan diperbarui dengan screenshot akun resmi" loading="lazy">','<a class="instagram-profile" href="'+url+'" target="_blank" rel="noopener noreferrer" aria-label="Buka Instagram resmi Furia Sports Club"><img src="assets/instagram-furiasportsclub.png" width="810" height="399" alt="Cuplikan profil Instagram resmi Furia Sports Club, @furiasportsclub" loading="lazy"></a>');
+h=h.replace('<figcaption>Ruang cerita Furia.</figcaption>','<figcaption>Cuplikan profil Instagram · buka untuk kabar terbaru.</figcaption>');
+h=h.replace('<button id="motion-toggle"','<a href="'+url+'" target="_blank" rel="noopener noreferrer">Instagram ↗</a><button id="motion-toggle"');
+fs.writeFileSync('public/index.html',h);
+let c=fs.readFileSync('public/config.js','utf8');c=c.replace("developerUrl: '',", "instagramUrl: '"+url+"',\n  developerUrl: '',");fs.writeFileSync('public/config.js',c);
+fs.appendFileSync('public/refinement.css','\n.instagram-cta{margin-top:24px}.instagram-profile{display:block;background:#0c1114}.instagram-profile img{aspect-ratio:auto;object-fit:contain;width:100%;height:auto}.instagram-profile:focus-visible{outline-offset:-4px}.instagram-frame figcaption{line-height:1.7}\n');
+let readme=fs.readFileSync('README.md','utf8');readme+='\n## Instagram resmi\n\nInstagram: '+url+'\nScreenshot pengguna: public/assets/instagram-furiasportsclub.png. Link terpasang di tombol, screenshot profil, dan footer. Screenshot adalah cuplikan, bukan data jumlah followers real-time. Deep link HTTPS mengikuti dukungan aplikasi/pengaturan perangkat.\n';fs.writeFileSync('README.md',readme);
+let gh=fs.readFileSync('GITHUB-CLOUDFLARE.md','utf8');gh=gh.replace(/Pada pemeriksaan 23 Oktober 2026,[\s\S]*?## Pembaruan foto berikutnya/,'Repositori privat `https://github.com/hery4wn/furia-website` telah dibuat pengguna dan diverifikasi melalui konektor. Source diunggah lewat GitHub Git Data API; riwayat commit GitHub terpisah dari riwayat source Sites.\n\n## Pembaruan foto berikutnya');fs.writeFileSync('GITHUB-CLOUDFLARE.md',gh);
