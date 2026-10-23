@@ -6,7 +6,7 @@ Desain versi sebelumnya dipertahankan, ditambah konten venue, animasi reveal, pe
 
 - `public/index.html`, `public/style.css`, `public/script.js`, `public/community.js`: website.
 - `public/config.js`: AYO, kontak/jam operasional, serta `developerUrl` untuk portofolio Hery.
-- `public/assets/instagram-placeholder.svg`: ganti gambar screenshot IG desktop. Jika memakai PNG/JPG, ubah src pada `.instagram-frame img`; rasio 8:5.
+- `public/assets/instagram-furiasportsclub.png`: screenshot IG pengguna; pertahankan gambar utuh dan perbarui jika ada cuplikan baru.
 - `worker/index.mjs`: API, keamanan admin, rate limits, statistik dan moderasi.
 - `worker/admin.mjs`: dashboard pribadi di `/admin`.
 - `drizzle/0000_furia.sql`: migrasi database awal; jangan ubah setelah diterapkan.
@@ -19,7 +19,7 @@ Desain versi sebelumnya dipertahankan, ditambah konten venue, animasi reveal, pe
 
 ## Statistik
 
-Buka `/admin` dengan akun ChatGPT pemilik untuk melihat 7/30/90 hari dan unduh CSV. Tidak ada angka simulasi pada dashboard produksi. Waktu WITA.
+Buka `/admin` dan masuk dengan kata sandi pribadi yang disimpan sebagai secret `ADMIN_PASSWORD` di Cloudflare untuk melihat 7/30/90 hari dan unduh CSV. Tidak ada angka simulasi pada dashboard produksi. Waktu WITA. Statistik hosting baru dimulai tanpa impor data lama sesuai pilihan pemilik.
 
 `page_view` = halaman utama dibuka. Klik AYO = klik tombol booking, bukan reservasi selesai. Pengunjung-harian = browser unik per hari dijumlahkan; bukan orang unik lintas hari. Rasio klik menggunakan sesi kunjungan yang juga mengeklik AYO. IDs acak; tidak menyimpan nama/email/IP mentah dalam event statistik. Do Not Track dihormati, bot yang dikenali dan preview dikecualikan. Penghitung bukan sistem antifraud dan tetap berupa perkiraan.
 
@@ -33,7 +33,7 @@ Referensi: https://developers.google.com/maps/documentation/places/web-service/r
 
 ## Peluncuran
 
-Identity Site tetap `appgprj_6ac7897b5fe48191bbb1909fd3adf21d`, audience dipertahankan. Hosting memakai Worker + D1 binding DB; DNS furiapalopo.fit mengikuti DEPLOYMENT.md. Statistik pengunjung umum baru bermakna setelah situs dibuka untuk publik dan dibagikan. Kontak WA/IG serta jam operasional belum tersedia. Foto venue/fasilitas masih ilustrasi dan ditandai di bagian terkait; kredit footer diganti menjadi pengembang.
+Hosting utama memakai Cloudflare Worker + D1 binding DB pada akun pemilik, terhubung ke GitHub `hery4wn/furia-website`, branch `main`. Lihat `CLOUDFLARE-SETUP.md` untuk konfigurasi deployment dan status domain `furiapalopo.fit`. Instagram resmi sudah terpasang; WhatsApp dan jam operasional belum tersedia. Foto venue/fasilitas masih ilustrasi dan ditandai. Site lama tetap terpisah dengan identity `appgprj_6ac7897b5fe48191bbb1909fd3adf21d` dan audience tetap dipertahankan.
 
 ## Penyempurnaan desain dan motion
 

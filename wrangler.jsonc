@@ -4,6 +4,10 @@
   "main": "cloudflare/index.mjs",
   "compatibility_date": "2026-10-23",
   "workers_dev": true,
+  "routes": [
+    { "pattern": "furiapalopo.fit", "custom_domain": true },
+    { "pattern": "www.furiapalopo.fit", "custom_domain": true }
+  ],
   "build": { "command": "node scripts/build.mjs" },
   "d1_databases": [{
     "binding": "DB",
