@@ -1,0 +1,18 @@
+{
+  // Copy to wrangler.jsonc after obtaining the real D1 database ID.
+  "name": "furia-website",
+  "main": "cloudflare/index.mjs",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": true,
+  "build": { "command": "node scripts/build.mjs" },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "furia-website",
+    "database_id": "REPLACE_WITH_REAL_D1_ID",
+    "migrations_dir": "drizzle"
+  }],
+  "vars": {
+    "CF_ACCESS_TEAM_DOMAIN": "https://REPLACE_WITH_TEAM.cloudflareaccess.com",
+    "CF_ACCESS_AUD": "REPLACE_WITH_APPLICATION_AUDIENCE"
+  }
+}

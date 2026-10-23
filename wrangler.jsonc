@@ -1,0 +1,14 @@
+{
+  "name": "furia-website",
+  "account_id": "e49c0edfb92607ef268e0bf3ff2669c6",
+  "main": "cloudflare/index.mjs",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": true,
+  "build": { "command": "node scripts/build.mjs" },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "furia-website",
+    "database_id": "0c87fe83-bb84-435f-a454-028ab58e684c",
+    "migrations_dir": "drizzle"
+  }]
+}
