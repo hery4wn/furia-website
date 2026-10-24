@@ -8,7 +8,8 @@
     { "pattern": "furiapalopo.fit", "custom_domain": true },
     { "pattern": "www.furiapalopo.fit", "custom_domain": true }
   ],
-  "build": { "command": "node scripts/build.mjs" },
+  "build": { "command": "node scripts/build.mjs --external-assets" },
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": true },
   "d1_databases": [{
     "binding": "DB",
     "database_name": "furia-website",

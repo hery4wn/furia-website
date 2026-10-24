@@ -1,8 +1,9 @@
+import {createAssets} from './static-local.mjs';
 import assert from 'node:assert/strict';
 import worker from '../cloudflare/index.mjs';
 import {createDB} from './sqlite-local.mjs';
 const DB=createDB();
-const env={DB,CF_ACCESS_TEAM_DOMAIN:'https://furia-test.cloudflareaccess.com',CF_ACCESS_AUD:'furia-test-admin'};
+const env={DB,ASSETS:createAssets(),CF_ACCESS_TEAM_DOMAIN:'https://furia-test.cloudflareaccess.com',CF_ACCESS_AUD:'furia-test-admin'};
 const pair=await crypto.subtle.generateKey({name:'RSASSA-PKCS1-v1_5',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['sign','verify']);
 const jwk=await crypto.subtle.exportKey('jwk',pair.publicKey);jwk.kid='test-key';
 const originalFetch=globalThis.fetch;

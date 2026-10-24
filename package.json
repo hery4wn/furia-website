@@ -1,1 +1,1 @@
-{"name":"furia-sports-center","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","test":"node scripts/test-worker.mjs","start":"node scripts/preview.mjs"}}
+{"name":"furia-sports-center","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs --external-assets","test":"node scripts/test-worker.mjs","start":"node scripts/preview.mjs"}}

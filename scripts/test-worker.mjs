@@ -1,7 +1,8 @@
+import {createAssets} from './static-local.mjs';
 import assert from 'node:assert/strict';
 import worker from '../dist/server/index.js';
 import {createDB} from './sqlite-local.mjs';
-const DB=createDB(),env={DB};const base='https://furia.test';const admin={'oai-authenticated-user-email':'heriyawan25032004@gmail.com'};
+const DB=createDB(),env={DB,ASSETS:createAssets()};const base='https://furia.test';const admin={'oai-authenticated-user-email':'heriyawan25032004@gmail.com'};
 function req(path,{data,headers={},method}={}){return new Request(base+path,{method:method|| (data?'POST':'GET'),headers:{...(data?{'Content-Type':'application/json',Origin:base}:{}),...headers},...(data?{body:JSON.stringify(data)}:{})});}
 const call=(path,o)=>worker.fetch(req(path,o),env,{});
 assert.equal((await call('/')).status,200);assert.equal((await call('/assets/furia-logo-transparent.png')).headers.get('content-type'),'image/png');
