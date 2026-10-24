@@ -33,7 +33,7 @@ Referensi: https://developers.google.com/maps/documentation/places/web-service/r
 
 ## Peluncuran
 
-Hosting utama memakai Cloudflare Worker + D1 binding DB pada akun pemilik, terhubung ke GitHub `hery4wn/furia-website`, branch `main`. Lihat `CLOUDFLARE-SETUP.md` untuk konfigurasi deployment dan status domain `furiapalopo.fit`. Instagram resmi sudah terpasang; WhatsApp dan jam operasional belum tersedia. Foto venue/fasilitas masih ilustrasi dan ditandai. Site lama tetap terpisah dengan identity `appgprj_6ac7897b5fe48191bbb1909fd3adf21d` dan audience tetap dipertahankan.
+Hosting utama memakai Cloudflare Worker + D1 binding DB pada akun pemilik, terhubung ke GitHub `hery4wn/furia-website`, branch `main`. Lihat `CLOUDFLARE-SETUP.md` untuk konfigurasi deployment dan status domain `furiapalopo.fit`. Instagram resmi sudah terpasang; WhatsApp dan jam operasional belum tersedia. 25 foto venue/fasilitas asli dari pemilik proyek sudah dipasang; hero memakai foto stok olahraga berlisensi. Site lama tetap terpisah dengan identity `appgprj_6ac7897b5fe48191bbb1909fd3adf21d` dan audience tetap dipertahankan.
 
 ## Penyempurnaan desain dan motion
 
@@ -50,3 +50,11 @@ Hosting utama memakai Cloudflare Worker + D1 binding DB pada akun pemilik, terhu
 
 Instagram: https://www.instagram.com/furiasportsclub?psln=MWgwcWR5YWxja2wzdg==
 Screenshot pengguna: public/assets/instagram-furiasportsclub.png. Link terpasang di tombol, screenshot profil, dan footer. Screenshot adalah cuplikan, bukan data jumlah followers real-time. Deep link HTTPS mengikuti dukungan aplikasi/pengaturan perangkat.
+
+## Foto venue (24 Oktober 2026)
+
+25 dokumentasi asli berada di `public/assets/venue/`, dikonversi ke WebP lossless dengan orientasi dan resolusi penuh dipertahankan serta kesamaan piksel diverifikasi. Pratinjau 1600px ada di `public/assets/venue-preview-*.webp`; dialog membuka file penuh melalui `data-full-src`. Galeri mencakup seluruh foto, dengan empat foto utama pada halaman.
+
+Hero badminton, padel, dan gym memakai stok olahraga berkualitas tinggi; sumber/lisensi dicatat di `public/assets/PHOTO-CREDITS.md`. WebP hero memiliki ukuran responsif 1200/2400px. Foto stok tidak dipakai untuk menggambarkan fasilitas venue. Nama Hery dan kredit pengembang mengarah ke Instagram yang diberikan pengguna.
+
+Cloudflare sekarang menyajikan file melalui binding `ASSETS`, sementara Worker tetap memproses API, login dan moderasi. Build `npm run build` tidak lagi menanam seluruh binary foto dalam kode Worker. Preview dan tes lokal memakai adapter `scripts/static-local.mjs`.

@@ -14,7 +14,7 @@ class Check(HTMLParser):
 c=Check();h=(p/'index.html').read_text(encoding='utf-8');c.feed(h)
 assert len(c.ids)==len(set(c.ids)), 'duplicate IDs'
 assert all(x in c.ids for x in c.refs), 'missing anchors'
-assert all((p/x).is_file() for x in c.files), 'missing assets'
+assert all((p/x.lstrip('/')).is_file() for x in c.files), 'missing assets'
 assert 'owner' not in h.lower()
 assert h.count('assets/furia-logo-transparent.png')==2
 assert [x for x in re.findall('data-sport="([^"]+)"',h)]==['Badminton','Padel','Gym']

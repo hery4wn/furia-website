@@ -24,3 +24,6 @@ html{scroll-padding-top:85px}.section{padding:68px 22px}.eyebrow{font-size:9px;l
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.motion-ready .reveal{opacity:1;transform:none;clip-path:none}.hero-visual,.story-image>.photo{transform:none}.line>span{transform:none;opacity:1}}
 
 .instagram-cta{margin-top:24px}.instagram-profile{display:block;background:#0c1114}.instagram-profile img{aspect-ratio:auto;object-fit:contain;width:100%;height:auto}.instagram-profile:focus-visible{outline-offset:-4px}.instagram-frame figcaption{line-height:1.7}
+
+/* Original venue photography and developer destination. */
+.gallery-item[hidden]{display:none!important}.developer-name{color:inherit;text-decoration:none}.developer-name:hover{text-decoration:underline;text-underline-offset:.13em}.developer-name:focus-visible{outline:2px solid currentColor;outline-offset:8px}#dialog-media .photo{object-fit:contain;background:#102820}

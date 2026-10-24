@@ -42,3 +42,7 @@ Do not use the old Sites IP as the new Worker target.
 The owner explicitly chose to start statistics from zero. No old analytics, reviews or rate-limit rows were copied to Cloudflare or committed to GitHub. The existing Sites URL remains separate.
 
 Validation: existing Worker tests, Cloudflare signature/authorization tests, and password/session/CSRF/rate-limit tests pass locally.
+
+## Media update — 24 October 2026
+
+`npm run build` and Wrangler build use `--external-assets`. Static files are uploaded from `public/` with binding `ASSETS` and `run_worker_first: true`. Authentication/API routing remains in the Worker. This allows original-resolution lossless WebP photography without embedding large binary strings in the Worker bundle. Local static adapter is used in tests and preview only.
